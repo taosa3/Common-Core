@@ -1,39 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   printf.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tafonso <tafonso@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/14 18:15:22 by tafonso           #+#    #+#             */
-/*   Updated: 2025/04/21 13:38:41 by tafonso          ###   ########.fr       */
+/*   Created: 2025/05/04 16:34:36 by tafonso           #+#    #+#             */
+/*   Updated: 2025/05/04 19:22:04 by tafonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef PRINTF_H
+# define PRINTF_H
 
-int	ft_atoi(const char *nptr)
-{
-	int	i;
-	int	sign;
-	int	result;
+# include "libft/libft.h"
+# include <stdarg.h>
 
-	result = 0;
-	sign = 1;
-	i = 0;
-	while (nptr[i] == ' ' || (nptr[i] >= 9 && nptr[i] <= 13))
-		i++;
-	if (nptr[i] == '-' || nptr[i] == '+')
-	{
-		if (nptr[i] == '-')
-			sign *= -1;
-		i++;
-	}
-	while (nptr[i] && nptr[i] >= '0' && nptr[i] <= '9')
-	{
-		result *= 10;
-		result += nptr[i] - '0';
-		i++;
-	}
-	return (result * sign);
-}
+int	print_char(char c);
+int	print_str(char *str);
+int	print_num(int num);
+int	print_unsigned(unsigned int num);
+int	print_ptr(void *ptr);
+int	puthex_x(unsigned int n, int flag);
+int	ft_printf(const char *format, ...);
+
+#endif
