@@ -1,6 +1,6 @@
 CFLAGS = -Wall -Wextra -Werror
 NAME = libftprintf.a
-SRC = ft_printf.c print_char.c print_num.c print_str.c print_unsigned.c print_ptr.c puthex_x.c
+SRC = ft_printf.c print_char.c print_num.c print_str.c print_unsigned.c print_ptr.c puthex_x.c libft/ft_itoa.c libft/ft_uitoa.c
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
@@ -17,6 +17,6 @@ fclean: clean
 re: fclean all
 
 compile: all
-	cc $(CFLAGS) main.c $(NAME) libft/libft.a -Ilibft -o a.out
+	cc $(CFLAGS) main.c $(NAME) -I libft -o a.out
 
 .PHONY: all clean fclean re
