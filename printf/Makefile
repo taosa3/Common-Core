@@ -16,4 +16,7 @@ fclean: clean
 
 re: fclean all
 
+compile: all
+	cc $(CFLAGS) main.c $(NAME) libft/libft.a -Ilibft -o a.out
+
 .PHONY: all clean fclean re
