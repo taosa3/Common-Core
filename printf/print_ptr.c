@@ -6,12 +6,12 @@
 /*   By: tafonso <tafonso@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 19:12:06 by tafonso           #+#    #+#             */
-/*   Updated: 2025/05/04 19:25:11 by tafonso          ###   ########.fr       */
+/*   Updated: 2025/05/22 11:52:06 by tafonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/libft.h"
-#include "printf.h"
+#include "ft_printf.h"
 
 static void	puthex(uintptr_t n)
 {

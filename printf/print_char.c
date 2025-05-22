@@ -6,11 +6,11 @@
 /*   By: tafonso <tafonso@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 16:33:36 by tafonso           #+#    #+#             */
-/*   Updated: 2025/05/04 19:17:49 by tafonso          ###   ########.fr       */
+/*   Updated: 2025/05/22 11:51:47 by tafonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printf.h"
+#include "ft_printf.h"
 
 int	print_char(char c)
 {

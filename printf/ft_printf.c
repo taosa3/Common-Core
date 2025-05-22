@@ -6,12 +6,12 @@
 /*   By: tafonso <tafonso@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:53:56 by tafonso           #+#    #+#             */
-/*   Updated: 2025/05/21 15:53:30 by tafonso          ###   ########.fr       */
+/*   Updated: 2025/05/22 11:51:12 by tafonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/libft.h"
-#include "printf.h"
+#include "ft_printf.h"
 
 static	int	handle_format(const	char *format, va_list args, size_t *i)
 {

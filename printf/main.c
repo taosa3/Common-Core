@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "libft/libft.h"
-#include "printf.h"
+#include "ft_printf.h"
 
 int main() {
     int n = 20;
