@@ -6,7 +6,7 @@
 /*   By: tafonso <tafonso@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 19:12:06 by tafonso           #+#    #+#             */
-/*   Updated: 2025/05/22 11:52:06 by tafonso          ###   ########.fr       */
+/*   Updated: 2025/05/23 13:26:35 by tafonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ int	print_ptr(void *ptr)
 
 	if (!ptr)
 	{
-		print_str("0x0");
-		return (3);
+		print_str("(nil)");
+		return (5);
 	}
 	address = (uintptr_t)ptr;
 	print_str("0x");

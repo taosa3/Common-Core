@@ -8,7 +8,7 @@ int main() {
 	char *str = "Ola tudo?";
 	char c = 'A';
 	void *ptr;
-	ptr = str;
+	ptr = 0;
 	int len = 0;
     
 	printf("\033[1;33m===== %%c =====\033[0m\n");
@@ -26,7 +26,10 @@ int main() {
 	printf("\033[1;33m===== %%p =====\033[0m\n");
 	len = ft_printf("Checking pointers: %p\n", ptr);
 	ft_printf("Length of the string: %d\n", len);
-
+    len = 0;
+    len = printf(" %p %p \n", ptr, ptr);
+    printf("Length of the string: %d\n", len);
+    
 	len = 0;
 
 	printf("\033[1;33m===== %%d and %%i =====\033[0m\n");
