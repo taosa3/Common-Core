@@ -10,7 +10,7 @@ int main(void)
         perror("Error opening file");
         return (1);
     }
-	while (line = get_next_line(fd))
+	while ((line = get_next_line(fd)) != NULL)
 	{
 		printf("%s", line);
 		free(line);
