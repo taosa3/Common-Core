@@ -6,7 +6,7 @@
 /*   By: tafonso <tafonso@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 17:13:30 by tafonso           #+#    #+#             */
-/*   Updated: 2025/08/27 17:46:27 by tafonso          ###   ########.fr       */
+/*   Updated: 2025/05/04 16:05:29 by tafonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <limits.h>
 
 int		ft_atoi(const char *nptr);
-long	ft_atol(const char *str);
 void	ft_bzero(void *s, size_t n);
 void	*ft_calloc(size_t nmemb, size_t size);
 int		ft_isalnum(int c);

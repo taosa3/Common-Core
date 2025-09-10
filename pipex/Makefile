@@ -1,13 +1,9 @@
 CC = cc
-NAME = push_swap
+NAME = pipex
 SRCS = main.c \
-	   moves.c \
-	   moves_2.c \
-	   index_sorted.c \
-	   init_stack.c \
-	   free_and_errors.c \
-	   algorithm.c \
-	   check_args.c
+	   processes.c \
+	   pipex_utils.c \
+	   cleanup.c
 
 OBJ_DIR = Objects
 OBJ = $(SRCS:%.c=$(OBJ_DIR)/%.o)
