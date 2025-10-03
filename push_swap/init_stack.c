@@ -6,7 +6,7 @@
 /*   By: tafonso <tafonso@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/30 01:28:40 by tafonso           #+#    #+#             */
-/*   Updated: 2025/08/30 02:37:28 by tafonso          ###   ########.fr       */
+/*   Updated: 2025/10/03 22:18:08 by tafonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,12 @@ void	init_stack(t_stack_node **stack, char **argv)
 	while (argv[i])
 	{
 		if (!check_valid_numbers(argv[i]))
-			error(*stack, "There are invalid characters.");
+			error(*stack, "There are invalid characters.", argv);
 		n = ft_atol(argv[i]);
 		if (n > INT_MAX || n < INT_MIN)
-			error(*stack, "Number is too big for int");
+			error(*stack, "Number is too big for int", argv);
 		if (!check_duplicates((*stack), (int)n))
-			error(*stack, "There is duplicates");
+			error(*stack, "There is duplicates", argv);
 		append_stack(stack, (int)n);
 		i++;
 	}

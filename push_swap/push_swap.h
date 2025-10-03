@@ -6,7 +6,7 @@
 /*   By: tafonso <tafonso@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/30 02:37:49 by tafonso           #+#    #+#             */
-/*   Updated: 2025/08/30 02:39:59 by tafonso          ###   ########.fr       */
+/*   Updated: 2025/10/03 22:17:49 by tafonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int				check_sorted(t_stack_node *stack);
 void			free_all(t_stack_node *a, t_stack_node *b, int ac, char **str);
 void			free_split(char **split);
 void			free_stack(t_stack_node *stack);
-void			error(t_stack_node *stack, char *msg);
+void			error(t_stack_node *stack, char *msg, char **split);
 
 //moves
 void			sa(t_stack_node **a);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap_utils.c                                  :+:      :+:    :+:   */
+/*   free_and_errors.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tafonso <tafonso@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/30 02:31:56 by tafonso           #+#    #+#             */
-/*   Updated: 2025/08/30 02:32:48 by tafonso          ###   ########.fr       */
+/*   Updated: 2025/10/03 22:16:39 by tafonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,10 @@ void	free_split(char **split)
 	free(split);
 }
 
-void	error(t_stack_node *stack, char *msg)
+void	error(t_stack_node *stack, char *msg, char **split)
 {
 	free_stack(stack);
+	free_split(split);
 	ft_printf("Error: %s\n", msg);
 	exit(1);
 }
