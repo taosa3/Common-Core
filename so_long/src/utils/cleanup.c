@@ -6,7 +6,7 @@
 /*   By: tafonso <tafonso@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 20:58:04 by tafonso           #+#    #+#             */
-/*   Updated: 2025/07/16 20:58:09 by tafonso          ###   ########.fr       */
+/*   Updated: 2025/10/03 21:04:53 by tafonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ void	free_images(t_game *game)
 		mlx_destroy_image(game->mlx, game->images.collectible);
 	if (game->images.exit)
 		mlx_destroy_image(game->mlx, game->images.exit);
+	if (game->images.exit_with_player)
+		mlx_destroy_image(game->mlx, game->images.exit_with_player);
 }
 
 void	cleanup(t_game *game)
