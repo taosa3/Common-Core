@@ -7,6 +7,7 @@ SRCS = main.c \
 	   init_stack.c \
 	   free_and_errors.c \
 	   algorithm.c \
+	   sort.c \
 	   check_args.c
 
 OBJ_DIR = Objects

@@ -6,17 +6,17 @@
 /*   By: tafonso <tafonso@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/30 02:31:56 by tafonso           #+#    #+#             */
-/*   Updated: 2025/10/03 22:16:39 by tafonso          ###   ########.fr       */
+/*   Updated: 2025/10/10 17:00:10 by tafonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	free_all(t_stack_node *a, t_stack_node *b, int ac, char **str)
+void	free_all(t_stack_node *a, t_stack_node *b, char **str, int flag)
 {
 	free_stack(a);
 	free_stack(b);
-	if (ac == 2)
+	if (flag)
 		free_split(str);
 	exit(0);
 }
@@ -45,10 +45,11 @@ void	free_split(char **split)
 	free(split);
 }
 
-void	error(t_stack_node *stack, char *msg, char **split)
+void	error(t_stack_node *stack, char *msg, char **split, int flag)
 {
 	free_stack(stack);
-	free_split(split);
+	if (flag)
+		free_split(split);
 	ft_printf("Error: %s\n", msg);
 	exit(1);
 }

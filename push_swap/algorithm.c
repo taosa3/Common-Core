@@ -6,7 +6,7 @@
 /*   By: tafonso <tafonso@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 14:17:41 by tafonso           #+#    #+#             */
-/*   Updated: 2025/09/03 17:45:25 by tafonso          ###   ########.fr       */
+/*   Updated: 2025/10/10 18:02:37 by tafonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,25 +21,6 @@ int	check_sorted(t_stack_node *stack)
 		stack = stack->next;
 	}
 	return (1);
-}
-
-void	sort_two(t_stack_node **a)
-{
-	if ((*a)->n > (*a)->next->n)
-		sa(a);
-}
-
-void	sort_three(t_stack_node **a)
-{
-	t_stack_node	*biggest_node;
-
-	biggest_node = find_max(*a);
-	if (biggest_node == *a)
-		ra(a);
-	else if (biggest_node == (*a)->next)
-		rra(a);
-	if ((*a)->n > (*a)->next->n)
-		sa(a);
 }
 
 static int	count_bits(int max_num)

@@ -6,7 +6,7 @@
 /*   By: tafonso <tafonso@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/30 01:28:40 by tafonso           #+#    #+#             */
-/*   Updated: 2025/10/03 22:18:08 by tafonso          ###   ########.fr       */
+/*   Updated: 2025/10/10 18:10:18 by tafonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,25 @@ static void	append_stack(t_stack_node **stack, int n)
 	}
 }
 
-void	init_stack(t_stack_node **stack, char **argv)
+void	sort(t_stack_node **a, t_stack_node **b)
+{
+	if (!check_sorted(*a))
+	{
+		if (stack_len(*a) == 2)
+			sort_two(a);
+		else if (stack_len(*a) == 3)
+			sort_three(a);
+		else if (stack_len(*a) == 5)
+			sort_five(a, b);
+		else
+		{
+			assign_indexes(*a);
+			radix_sort(a, b);
+		}
+	}
+}
+
+void	init_stack(t_stack_node **stack, char **argv, int flag)
 {
 	long	n;
 	int		i;
@@ -70,12 +88,12 @@ void	init_stack(t_stack_node **stack, char **argv)
 	while (argv[i])
 	{
 		if (!check_valid_numbers(argv[i]))
-			error(*stack, "There are invalid characters.", argv);
+			error(*stack, "There are invalid characters.", argv, flag);
 		n = ft_atol(argv[i]);
 		if (n > INT_MAX || n < INT_MIN)
-			error(*stack, "Number is too big for int", argv);
+			error(*stack, "Number is too big for int", argv, flag);
 		if (!check_duplicates((*stack), (int)n))
-			error(*stack, "There is duplicates", argv);
+			error(*stack, "There is duplicates", argv, flag);
 		append_stack(stack, (int)n);
 		i++;
 	}
