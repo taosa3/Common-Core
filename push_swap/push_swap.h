@@ -6,7 +6,7 @@
 /*   By: tafonso <tafonso@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/30 02:37:49 by tafonso           #+#    #+#             */
-/*   Updated: 2025/10/10 18:10:05 by tafonso          ###   ########.fr       */
+/*   Updated: 2025/10/13 19:14:58 by tafonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ int				check_duplicates(t_stack_node *stack, int n);
 int				check_sorted(t_stack_node *stack);
 
 //errors
-void			free_all(t_stack_node *a, t_stack_node *b, char **str, int flag);
+void			free_all(t_stack_node *a, t_stack_node *b, char **str, \
+int flag);
 void			free_split(char **split);
 void			free_stack(t_stack_node *stack);
 void			error(t_stack_node *stack, char *msg, char **split, int flag);

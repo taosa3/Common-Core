@@ -1,27 +1,39 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sort.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tafonso <tafonso@student.42lisboa.com>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/13 19:13:58 by tafonso           #+#    #+#             */
+/*   Updated: 2025/10/13 19:15:17 by tafonso          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 static int	find_min_position(t_stack_node *a)
 {
-    int min;
-    int position;
-	int i;
-    t_stack_node *stack;
+	int				min;
+	int				position;
+	int				i;
+	t_stack_node	*stack;
 
 	min = a->n;
 	position = 0;
 	stack = a;
 	i = 0;
-    while (stack)
-    {
-        if (stack->n < min)
-        {
-            min = stack->n;
-            position = i;
-        }
-        stack = stack->next;
-        i++;
-    }
-    return (position);
+	while (stack)
+	{
+		if (stack->n < min)
+		{
+			min = stack->n;
+			position = i;
+		}
+		stack = stack->next;
+		i++;
+	}
+	return (position);
 }
 
 static void	push_min_to_b(t_stack_node **a, t_stack_node **b)
@@ -38,7 +50,6 @@ static void	push_min_to_b(t_stack_node **a, t_stack_node **b)
 		while (position++ < size)
 			rra(a);
 	pb(a, b);
-
 }
 
 void	sort_two(t_stack_node **a)
