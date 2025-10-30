@@ -1,0 +1,1 @@
+/* function that gives the position of the queens when you put 4 queens in a board */
