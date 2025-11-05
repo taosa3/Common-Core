@@ -6,7 +6,7 @@
 /*   By: tafonso <tafonso@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 17:13:30 by tafonso           #+#    #+#             */
-/*   Updated: 2025/09/28 12:25:19 by tafonso          ###   ########.fr       */
+/*   Updated: 2025/11/05 22:49:59 by tafonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,6 @@ int		ft_tolower(int c);
 int		ft_toupper(int c);
 char	*ft_uitoa(unsigned int n);
 char	*ft_strndup(char *str, size_t n);
+int		ft_strcmp(const char *s1, const char *s2);
 
 #endif
