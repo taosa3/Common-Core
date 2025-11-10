@@ -1,5 +1,3 @@
-/* function that gives the position of the queens when you put 4 queens in a board */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>

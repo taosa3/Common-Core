@@ -1,80 +1,115 @@
 #include "get_next_line.h"
 
-static size_t ft_strlen(char *str, int flag)
+char *ft_strchr(char *s, int c)
+{
+    int i = 0;
+    while (s[i] && s[i] != c)
+        i++;
+    if (s[i] == c)
+        return s + i;
+    else
+        return NULL;
+}
+
+void *ft_memcpy(void *dest, const void *src, size_t n)
 {
 	size_t i = 0;
-	if (!str)
-		return (0);
-	if (flag)
+    while (i < n)
 	{
-		while (str[i] && str[i] != '\n')
+        ((char *)dest)[i] = ((char *)src)[i];
+		i++;
+	}
+    return dest;
+}
+
+size_t ft_strlen(char *s)
+{
+    size_t ret = 0;
+	if (!s)
+		return (0);
+    while (s[ret])
+        ret++;
+    return (ret);
+}
+
+int str_append_mem(char **s1, char *s2, size_t size2)
+{
+    size_t size1 = ft_strlen(*s1);
+    char *tmp = malloc(size2 + size1 + 1);
+    if (!tmp)
+        return 0;
+	if (*s1)
+    	ft_memcpy(tmp, *s1, size1);
+    ft_memcpy(tmp + size1, s2, size2);
+    tmp[size1 + size2] = 0;
+    free(*s1);
+    *s1 = tmp;
+    return 1;
+}
+
+int str_append_str(char **s1, char *s2)
+{
+    return str_append_mem(s1, s2, ft_strlen(s2));
+}
+
+void *ft_memmove(void *dest, const void *src, size_t n)
+{
+    unsigned char *d = dest;
+	const unsigned char *s = src;
+	if (d == s || n == 0)
+		return (dest);
+    if (d < s)
+	{
+		size_t i = 0;
+		while (i < n)
+		{
+			d[i] = s[i];
 			i++;
-		if (str[i] == '\n')
-			i++;
+		}
 	}
 	else
-		while (str[i])
-			i++;
-	return (i);
-}
-static char *strjoin2(char *line, char *buffer)
-{
-	char *join;
-	int i;
-	size_t len1 = ft_strlen(line, 0);
-	size_t len2 = ft_strlen(buffer, 1);
-
-	join = malloc(len1 + len2 + 1);
-	if (!join)
-		return (free(line), NULL);
-	join[len1 + len2] = 0;
-	i = 0;
-	while (i < len1)
 	{
-		join[i] = line[i];
-		i++;
+		size_t i = n;
+		while (i-- > 0)
+			d[i - 1] = s[i - 1];
 	}
-	i = 0;
-	while (i < len2)
-	{
-		join[len1 + i] = buffer[i];
-		i++; 
-	}
-	i = 0;
-	while (buffer[len2 + i])
-	{
-		buffer[i] = buffer[len2 + i];
-		i++;
-	}
-	buffer[i] = '\0';
-	free(line);
-	return (join);
+    return dest;
 }
 
 char *get_next_line(int fd)
 {
-	static char buffer[BUFFER_SIZE + 1];
-	char *line = NULL;
-	ssize_t read_bytes;
+    static char buffer[BUFFER_SIZE + 1] = "";
+    char *ret = NULL;
 
-	read_bytes = 1;
-	while (fd >= 0 && BUFFER_SIZE >= 0 && read_bytes > 0)
+	if (!buffer[0])
 	{
-		if (!buffer[0])
-		{
-			read_bytes = read(fd, buffer, BUFFER_SIZE);
-			if (read_bytes < 0)
-				return (free(line), NULL);
-			buffer[read_bytes] = 0;
-		}
-		else
-		{
-			line = strjoin2(line, buffer);
-			if (!line)
-				return (NULL);
-			if (line[ft_strlen(line, 1) - 1] == '\n')
-				break ;
-		}
+		ssize_t read_bytes = read(fd, buffer, BUFFER_SIZE);
+		if (read_bytes <= 0)
+			return NULL;
+		buffer[read_bytes] = 0;
 	}
-	return (line);
+
+    char *tmp = ft_strchr(buffer, '\n');
+    while (!tmp)
+    {
+        if (!str_append_str(&ret, buffer))
+            return NULL;
+        ssize_t read_bytes = read(fd, buffer, BUFFER_SIZE);
+        if (read_bytes <= 0)
+        {
+			if (ret && ret[0])
+				return (ret);
+			free(ret);
+			return NULL;
+		}
+        buffer[read_bytes] = 0;
+		tmp = ft_strchr(buffer, '\n');
+    }
+    if (!str_append_mem(&ret, buffer, tmp - buffer + 1))
+    {
+        free(ret);
+        return NULL;
+    }
+	ft_memmove(buffer, tmp + 1, ft_strlen(tmp + 1) + 1);
+    return ret;
 }

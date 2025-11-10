@@ -19,6 +19,9 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 }				t_cmd;
 
+//builtins
+int		cd_builtin(char **av);
+int		echo_builtin(char **av);
 char	**parse(char *input);
 
 #endif

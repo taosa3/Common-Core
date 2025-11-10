@@ -6,5 +6,11 @@ int main()
 	char *line = get_next_line(fd);
 	printf("%s", line);
 	free(line);
+	line = get_next_line(fd);
+	printf("%s", line);
+	free(line);
+	line = get_next_line(fd);
+	printf("%s", line);
+	free(line);
 	return (0);
 }
