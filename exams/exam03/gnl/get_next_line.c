@@ -37,7 +37,7 @@ int str_append_mem(char **s1, char *s2, size_t size2)
     size_t size1 = ft_strlen(*s1);
     char *tmp = malloc(size2 + size1 + 1);
     if (!tmp)
-        return 0;
+    return 0;
 	if (*s1)
     	ft_memcpy(tmp, *s1, size1);
     ft_memcpy(tmp + size1, s2, size2);
@@ -98,7 +98,10 @@ char *get_next_line(int fd)
         if (read_bytes <= 0)
         {
 			if (ret && ret[0])
+			{
+				buffer[0] = 0;
 				return (ret);
+			}
 			free(ret);
 			return NULL;
 		}

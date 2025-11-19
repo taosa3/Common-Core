@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int main()
+int main(int ac, char **av, char **env)
 {
 	char *input;
 	char **tokens;
@@ -16,19 +16,6 @@ int main()
 		if (*input)
 			add_history(input);
 		tokens = parse(input);
-		i = 0;
-		while (tokens[i])
-		{
-			printf("%s\n", tokens[i]);
-			i++;
-		}
 		free(input);
-		i = 0;
-		while (tokens[i])
-		{
-			free(tokens[i]);
-			i++;
-		}
-		free(tokens);
 	}
 }
