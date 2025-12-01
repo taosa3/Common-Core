@@ -6,7 +6,7 @@
 /*   By: tafonso <tafonso@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 12:07:24 by tafonso           #+#    #+#             */
-/*   Updated: 2025/11/18 15:27:50 by tafonso          ###   ########.fr       */
+/*   Updated: 2025/11/24 16:37:55 by tafonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	execute(t_cmd *cmd, char **env)
 {
 	int fd[2];
 	
-	while (!cmd && !cmd->next)
+	while (cmd && cmd->next)
 	{
 		redirects(cmd);
 		if (cmd->heredoc)
