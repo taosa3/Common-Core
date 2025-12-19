@@ -1,3 +1,6 @@
 [submodule "minishell_dm_jf"]
 	path = minishell_dm_jf
 	url = https://github.com/MirandsssG/minishell_dm_jf.git
+[submodule "minishell_group"]
+	path = minishell_group
+	url = https://github.com/MirandsssG/minishell_dm_jf.git
