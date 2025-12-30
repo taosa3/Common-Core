@@ -8,11 +8,15 @@ long timestamp_ms(void)
     return (tv.tv_sec * 1000L + tv.tv_usec / 1000L);
 }
 
-void ms_sleep(long ms)
+void ms_sleep(t_table *table, long ms)
 {
     long start = timestamp_ms();
-    while ((timestamp_ms() - start) < ms)
+    while (!get_stop(table))
+	{
+		if ((timestamp_ms() - start) < ms)
+			break ;
         usleep(500);
+	}
 }
 
 static int ft_atoi_strict(const char *s)
@@ -63,6 +67,7 @@ void print_action(t_philosopher *philo, const char *action)
 
     pthread_mutex_lock(&table->print_mutex);
     ts = timestamp_ms() - table->start_time;
-    printf("%ld %d %s\n", ts, philo->id, action);
+    if (get_stop(table) == 0 || ft_strcmp(action, "died") == 0)
+        printf("%ld %d %s\n", ts, philo->id, action);
     pthread_mutex_unlock(&table->print_mutex);
 }
