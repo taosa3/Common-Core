@@ -1,12 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tafonso <tafonso@student.42lisboa.com>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/26 21:18:36 by tafonso           #+#    #+#             */
+/*   Updated: 2026/01/26 21:21:07 by tafonso          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PHILO_H
 # define PHILO_H
 
-#include <unistd.h>
-#include <stdio.h>
-#include <pthread.h>
-#include <stdlib.h>
-#include <sys/time.h>
-#include <limits.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <pthread.h>
+# include <stdlib.h>
+# include <sys/time.h>
+# include <limits.h>
 
 typedef struct s_philo
 {
@@ -17,7 +29,7 @@ typedef struct s_philo
 	int	number_of_times_each_philo_must_eat;
 }		t_philo;
 
-struct s_table;
+struct	s_table;
 
 typedef struct s_philosopher
 {
@@ -29,7 +41,7 @@ typedef struct s_philosopher
 	pthread_t			thread;
 	pthread_mutex_t		meal_mutex;
 	struct s_table		*table;
-}   t_philosopher;
+}	t_philosopher;
 
 typedef struct s_table
 {
@@ -45,8 +57,7 @@ typedef struct s_table
 	pthread_t			monitor_thread;
 	long				start_time;
 	int					stop;
-}   t_table;
-
+}	t_table;
 
 int		parse_args(int ac, char **av, t_table *table);
 int		init_table(t_table *table);

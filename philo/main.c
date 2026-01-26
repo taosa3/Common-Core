@@ -6,7 +6,7 @@
 /*   By: tafonso <tafonso@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/20 17:45:10 by tafonso           #+#    #+#             */
-/*   Updated: 2025/12/27 21:06:31 by tafonso          ###   ########.fr       */
+/*   Updated: 2026/01/26 21:21:52 by tafonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ static int	start_philos(t_table *table)
 		}
 		i++;
 	}
-	if (pthread_create(&table->monitor_thread, NULL, monitor_routine, table) != 0)
+	if (pthread_create(&table->monitor_thread, NULL, monitor_routine,
+			table) != 0)
 	{
 		perror("pthread_create");
 		set_stop(table);
