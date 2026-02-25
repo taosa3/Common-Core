@@ -6,7 +6,7 @@
 /*   By: tafonso <tafonso@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 21:18:36 by tafonso           #+#    #+#             */
-/*   Updated: 2026/01/26 21:21:07 by tafonso          ###   ########.fr       */
+/*   Updated: 2026/02/25 16:27:18 by tafonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,32 +59,35 @@ typedef struct s_table
 	int					stop;
 }	t_table;
 
+//init
 int		parse_args(int ac, char **av, t_table *table);
-int		init_table(t_table *table);
+int		allocate_resources(t_table *table);
 int		init_forks(t_table *table);
+int		init_mutexes(t_table *table);
 int		init_philos(t_table *table);
 int		init_philo_at(t_table *table, int i);
-int		allocate_resources(t_table *table);
-int		init_mutexes(t_table *table);
-int		init_philo_at(t_table *table, int i);
-void	destroy_forks(t_table *table);
-void	destroy_philos_mutexes(t_table *table);
-int		check_philos(t_table *table);
-void	destroy_table(t_table *table);
-long	timestamp_ms(void);
-void	ms_sleep(t_table *table, long ms);
-void	print_action(t_philosopher *philo, const char *action);
+int		init_table(t_table *table);
+
+//exec
 void	*philo_routine(void *arg);
 void	*monitor_routine(void *arg);
-int		get_stop(t_table *table);
-void	set_stop(t_table *table);
+int		check_philos(t_table *table);
+int		check_one(t_table *table, int i, int *all_ate);
 int		take_forks(t_philosopher *philo);
-int		take_forks_even(t_philosopher *philo);
-int		take_forks_odd(t_philosopher *philo);
 void	put_forks(t_philosopher *philo);
 void	philo_eat(t_philosopher *philo);
-int		check_one(t_table *table, int i, int *all_ate);
-int		check_philos(t_table *table);
+int		verify_eat(t_philosopher *philo);
+
+//utils
 int		ft_strcmp(const char *s1, const char *s2);
+long	timestamp_ms(void);
+void	ms_sleep(t_table *table, long ms);
+int		ft_atoi_strict(const char *s);
+void	print_action(t_philosopher *philo, const char *action);
+void	destroy_table(t_table *table);
+void	destroy_forks(t_table *table);
+void	destroy_philos_mutexes(t_table *table);
+int		get_stop(t_table *table);
+void	set_stop(t_table *table);
 
 #endif

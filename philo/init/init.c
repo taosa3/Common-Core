@@ -1,59 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tafonso <tafonso@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/26 18:49:33 by tafonso           #+#    #+#             */
-/*   Updated: 2026/01/26 21:18:03 by tafonso          ###   ########.fr       */
+/*   Created: 2026/02/25 15:54:39 by tafonso           #+#    #+#             */
+/*   Updated: 2026/02/25 16:17:21 by tafonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
-
-long	timestamp_ms(void)
-{
-	struct timeval	tv;
-
-	if (gettimeofday(&tv, NULL) != 0)
-		return (0);
-	return (tv.tv_sec * 1000L + tv.tv_usec / 1000L);
-}
-
-void	ms_sleep(t_table *table, long ms)
-{
-	long	start;
-
-	start = timestamp_ms();
-	while (!get_stop(table))
-	{
-		if ((timestamp_ms() - start) < ms)
-			break ;
-		usleep(500);
-	}
-}
-
-static int	ft_atoi_strict(const char *s)
-{
-	long	val;
-	int		i;
-
-	val = 0;
-	i = 0;
-	if (!s)
-		return (-1);
-	while (s[i] >= '0' && s[i] <= '9')
-	{
-		val = val * 10 + (s[i] - '0');
-		if (val > INT_MAX)
-			return (-1);
-		i++;
-	}
-	if (s[i] != '\0')
-		return (-1);
-	return ((int)val);
-}
+#include "../philo.h"
 
 int	parse_args(int ac, char **av, t_table *table)
 {
@@ -80,15 +37,39 @@ int	parse_args(int ac, char **av, t_table *table)
 	return (0);
 }
 
-void	print_action(t_philosopher *philo, const char *action)
+int	allocate_resources(t_table *table)
 {
-	long	ts;
-	t_table	*table;
+	table->forks = malloc(sizeof(pthread_mutex_t) * table->number_of_philosophers);
+	if (!table->forks)
+		return (1);
+	table->philos = malloc(sizeof(t_philosopher) * table->number_of_philosophers);
+	if (!table->philos)
+	{
+		free(table->forks);
+		return (1);
+	}
+	return (0);
+}
 
-	table = philo->table;
-	pthread_mutex_lock(&table->print_mutex);
-	ts = timestamp_ms() - table->start_time;
-	if (get_stop(table) == 0 || ft_strcmp(action, "died") == 0)
-		printf("%ld %d %s\n", ts, philo->id, action);
-	pthread_mutex_unlock(&table->print_mutex);
+int	init_forks(t_table *table)
+{
+	int	i;
+
+	i = 0;
+	while (i < table->number_of_philosophers)
+	{
+		if (pthread_mutex_init(&table->forks[i], NULL) != 0)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+int	init_mutexes(t_table *table)
+{
+	if (pthread_mutex_init(&table->print_mutex, NULL) != 0)
+		return (1);
+	if (pthread_mutex_init(&table->stop_mutex, NULL) != 0)
+		return (1);
+	return (0);
 }

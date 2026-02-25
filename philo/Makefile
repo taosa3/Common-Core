@@ -3,8 +3,9 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -g -pthread
 
 SRCS = main.c \
-		philo.c \
-		utils.c
+		$(addprefix exec/, philo.c routines.c) \
+		$(addprefix init/, init_helper.c init.c) \
+		$(addprefix utils/, utils_helper.c utils.c)
 
 OBJ_DIR = Objects
 OBJ = $(SRCS:%.c=$(OBJ_DIR)/%.o)
