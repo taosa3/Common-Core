@@ -44,7 +44,7 @@ Example:
 ```bash
 ./philo 5 800 200 200
 ```
-###Clean Up
+### Clean Up
 
 To remove compiled files:
 ```bash
