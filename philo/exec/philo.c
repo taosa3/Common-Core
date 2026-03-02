@@ -6,7 +6,7 @@
 /*   By: tafonso <tafonso@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/20 17:47:52 by tafonso           #+#    #+#             */
-/*   Updated: 2026/02/25 23:18:55 by tafonso          ###   ########.fr       */
+/*   Updated: 2026/02/26 01:09:57 by tafonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,15 @@ int	take_forks(t_philosopher *philo)
 	}
 	if (philo->id % 2 == 0)
 	{
-		pthread_mutex_lock(&philo->table->forks[philo->right_fork]);
 		pthread_mutex_lock(&philo->table->forks[philo->left_fork]);
+		pthread_mutex_lock(&philo->table->forks[philo->right_fork]);
 		print_action(philo, "has taken a fork");
 		print_action(philo, "has taken a fork");
 	}
 	else
 	{
-		pthread_mutex_lock(&philo->table->forks[philo->left_fork]);
 		pthread_mutex_lock(&philo->table->forks[philo->right_fork]);
+		pthread_mutex_lock(&philo->table->forks[philo->left_fork]);
 		print_action(philo, "has taken a fork");
 		print_action(philo, "has taken a fork");
 	}

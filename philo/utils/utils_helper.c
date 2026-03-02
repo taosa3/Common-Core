@@ -6,7 +6,7 @@
 /*   By: tafonso <tafonso@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 16:04:37 by tafonso           #+#    #+#             */
-/*   Updated: 2026/02/25 16:17:31 by tafonso          ###   ########.fr       */
+/*   Updated: 2026/02/28 00:41:47 by tafonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	destroy_table(t_table *table)
 {
 	if (!table)
-		return;
+		return ;
 	destroy_forks(table);
 	destroy_philos_mutexes(table);
 	pthread_mutex_destroy(&table->print_mutex);
@@ -29,7 +29,7 @@ void	destroy_forks(t_table *table)
 	int	i;
 
 	if (!table || !table->forks)
-		return;
+		return ;
 	i = 0;
 	while (i < table->number_of_philosophers)
 	{
@@ -43,7 +43,7 @@ void	destroy_philos_mutexes(t_table *table)
 	int	i;
 
 	if (!table || !table->philos)
-		return;
+		return ;
 	i = 0;
 	while (i < table->number_of_philosophers)
 	{

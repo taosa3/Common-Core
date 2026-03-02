@@ -6,7 +6,7 @@
 /*   By: tafonso <tafonso@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 15:56:21 by tafonso           #+#    #+#             */
-/*   Updated: 2026/02/25 16:17:16 by tafonso          ###   ########.fr       */
+/*   Updated: 2026/02/28 00:42:36 by tafonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,13 @@ int	init_philo_at(t_table *table, int i)
 	table->philos[i].id = i + 1;
 	table->philos[i].left_fork = i;
 	table->philos[i].right_fork = (i + 1) % table->number_of_philosophers;
-	table->philos[i].last_meal = table->start_time;
+	table->philos[i].last_meal = timestamp_ms();
 	table->philos[i].meals_eaten = 0;
 	if (pthread_mutex_init(&table->philos[i].meal_mutex, NULL) != 0)
 		return (1);
 	table->philos[i].table = table;
 	return (0);
 }
-
 
 int	init_table(t_table *table)
 {

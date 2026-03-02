@@ -6,7 +6,7 @@
 /*   By: tafonso <tafonso@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 16:08:47 by tafonso           #+#    #+#             */
-/*   Updated: 2026/02/25 23:14:53 by tafonso          ###   ########.fr       */
+/*   Updated: 2026/02/28 00:43:29 by tafonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ void	*philo_routine(void *arg)
 	{
 		if (verify_eat(philo))
 			break ;
-		if (take_forks(philo) == 1)
-			break ;
+		take_forks(philo);
 		philo_eat(philo);
 		put_forks(philo);
 		print_action(philo, "is sleeping");
