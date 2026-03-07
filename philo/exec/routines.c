@@ -6,7 +6,7 @@
 /*   By: tafonso <tafonso@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 16:08:47 by tafonso           #+#    #+#             */
-/*   Updated: 2026/02/28 00:43:29 by tafonso          ###   ########.fr       */
+/*   Updated: 2026/03/07 14:18:49 by tafonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,9 @@ int	check_one(t_table *table, int i, int *all_ate)
 		pthread_mutex_unlock(&table->philos[i].meal_mutex);
 		return (1);
 	}
-	if (table->number_of_times_each_philo_must_eat > 0 && table->philos[i].meals_eaten < table->number_of_times_each_philo_must_eat)
+	if (table->number_of_times_each_philo_must_eat > 0
+		&& table->philos[i].meals_eaten
+		< table->number_of_times_each_philo_must_eat)
 		*all_ate = 0;
 	pthread_mutex_unlock(&table->philos[i].meal_mutex);
 	return (0);

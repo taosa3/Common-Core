@@ -6,7 +6,7 @@
 /*   By: tafonso <tafonso@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 15:54:39 by tafonso           #+#    #+#             */
-/*   Updated: 2026/02/25 16:17:21 by tafonso          ###   ########.fr       */
+/*   Updated: 2026/03/07 14:27:19 by tafonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ int	parse_args(int ac, char **av, t_table *table)
 		table->number_of_times_each_philo_must_eat = ft_atoi_strict(av[5]);
 	else
 		table->number_of_times_each_philo_must_eat = -1;
-	if (table->number_of_philosophers <= 0 || table->time_to_die < 0
-		|| table->time_to_eat < 0 || table->time_to_sleep < 0)
+	if (table->number_of_philosophers <= 0 || table->time_to_die <= 0
+		|| table->time_to_eat <= 0 || table->time_to_sleep <= 0)
 	{
 		write(2, "Invalid arguments\n", 19);
 		return (1);
@@ -39,10 +39,12 @@ int	parse_args(int ac, char **av, t_table *table)
 
 int	allocate_resources(t_table *table)
 {
-	table->forks = malloc(sizeof(pthread_mutex_t) * table->number_of_philosophers);
+	table->forks = malloc(sizeof(pthread_mutex_t)
+			* table->number_of_philosophers);
 	if (!table->forks)
 		return (1);
-	table->philos = malloc(sizeof(t_philosopher) * table->number_of_philosophers);
+	table->philos = malloc(sizeof(t_philosopher)
+			* table->number_of_philosophers);
 	if (!table->philos)
 	{
 		free(table->forks);
