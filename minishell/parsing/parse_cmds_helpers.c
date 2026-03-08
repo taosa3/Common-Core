@@ -1,0 +1,126 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_cmds_helpers.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dluis-ma <dluis-ma@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/29 00:42:45 by mirandsssg        #+#    #+#             */
+/*   Updated: 2026/03/06 21:58:16 by dluis-ma         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../minishell.h"
+
+t_cmd	*init_cmd(int arg_count, int in_count, int out_count, int hd_count)
+{
+	t_cmd	*cmd;
+
+	cmd = ft_calloc(1, sizeof(t_cmd));
+	if (!cmd)
+		return (NULL);
+	cmd->infile_fd = -1;
+	cmd->append = 0;
+	cmd->heredoc = 0;
+	cmd->args = ft_calloc(arg_count + 1, sizeof(char *));
+	if (!cmd->args)
+		return (NULL);
+	if (in_count > 0)
+		cmd->infile = ft_calloc(in_count + 1, sizeof(char *));
+	if (out_count > 0)
+		cmd->outfile = ft_calloc(out_count + 1, sizeof(char *));
+	if (hd_count > 0)
+		cmd->heredoc_delim = ft_calloc(hd_count + 1, sizeof(char *));
+	return (cmd);
+}
+
+static void	add_arg_if_nonempty(t_cmd *cmd, const char *token, int *arg_i)
+{
+	if (!token)
+		return ;
+	if (!cmd->args)
+	{
+		cmd->args = malloc(sizeof(char *) * INITIAL_ARG_SIZE);
+		if (!cmd->args)
+		{
+			perror("malloc");
+			return ;
+		}
+	}
+	if (*arg_i >= INITIAL_ARG_SIZE)
+	{
+		cmd->args = ft_realloc(cmd->args, sizeof(char *)
+				* (*arg_i + INITIAL_ARG_SIZE), sizeof(char *) * (*arg_i));
+		if (!cmd->args)
+		{
+			perror("realloc");
+			return ;
+		}
+	}
+	cmd->args[*arg_i] = ft_strdup(token);
+	(*arg_i)++;
+}
+
+int	count_heredocs(char **tokens, int i)
+{
+	int	count;
+
+	count = 0;
+	while (tokens[i] && ft_strcmp(tokens[i], "|") != 0)
+	{
+		if (ft_strcmp(tokens[i], "<<") == 0 && tokens[i + 1])
+			count++;
+		i++;
+	}
+	return (count);
+}
+
+static void	handle_token(t_cmd *cmd, char **tokens, t_parse_state *st)
+{
+	if (!tokens[st->i])
+		return ;
+	if (ft_strcmp(tokens[st->i], "<") == 0 && tokens[st->i + 1])
+		cmd->infile[st->in_i++] = ft_strdup(tokens[++st->i]);
+	else if (ft_strcmp(tokens[st->i], ">") == 0 && tokens[st->i + 1])
+	{
+		cmd->outfile[st->out_i++] = ft_strdup(tokens[++st->i]);
+		cmd->append = 0;
+	}
+	else if (ft_strcmp(tokens[st->i], ">>") == 0 && tokens[st->i + 1])
+	{
+		cmd->outfile[st->out_i++] = ft_strdup(tokens[++st->i]);
+		cmd->append = 1;
+	}
+	else if (ft_strcmp(tokens[st->i], "<<") == 0 && tokens[st->i + 1])
+	{
+		cmd->heredoc_delim[st->h_i++] = ft_strdup(tokens[++st->i]);
+		cmd->heredoc = 1;
+	}
+	else
+		add_arg_if_nonempty(cmd, tokens[st->i], &st->arg_i);
+}
+
+int	parse_redirs_and_args(t_cmd *cmd, char **tokens, int i)
+{
+	t_parse_state	st;
+
+	st.i = i;
+	st.arg_i = 0;
+	st.h_i = 0;
+	st.in_i = 0;
+	st.out_i = 0;
+	while (tokens[st.i] && ft_strcmp(tokens[st.i], "|") != 0)
+	{
+		handle_token(cmd, tokens, &st);
+		st.i++;
+	}
+	if (cmd->args)
+		cmd->args[st.arg_i] = NULL;
+	if (cmd->infile)
+		cmd->infile[st.in_i] = NULL;
+	if (cmd->outfile)
+		cmd->outfile[st.out_i] = NULL;
+	if (cmd->heredoc_delim)
+		cmd->heredoc_delim[st.h_i] = NULL;
+	return (st.i);
+}

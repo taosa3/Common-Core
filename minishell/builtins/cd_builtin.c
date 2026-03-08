@@ -3,38 +3,124 @@
 /*                                                        :::      ::::::::   */
 /*   cd_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tafonso <tafonso@student.42lisboa.com>     +#+  +:+       +#+        */
+/*   By: dluis-ma <dluis-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/06 11:53:53 by tafonso           #+#    #+#             */
-/*   Updated: 2025/11/06 11:53:54 by tafonso          ###   ########.fr       */
+/*   Created: 2025/06/21 16:18:50 by mirandsssg        #+#    #+#             */
+/*   Updated: 2026/03/06 22:37:14 by dluis-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-int	cd_builtin(char **av)
+static t_env	*create_env_node(const char *key, const char *value)
 {
-	char *home;
-	
-	if (!av[1])
+	t_env	*new;
+
+	new = malloc(sizeof(t_env));
+	if (!new)
+		return (NULL);
+	new->key = ft_strdup(key);
+	new->value = ft_strdup(value);
+	new->next = NULL;
+	return (new);
+}
+
+static void	add_env_var(t_env **env_list, const char *key, const char *value)
+{
+	t_env	*tmp;
+	t_env	*new;
+
+	tmp = *env_list;
+	while (tmp)
 	{
-		home = getenv("HOME");
-		if (!home)
+		if (ft_strcmp(tmp->key, key) == 0)
 		{
-			fprintf(stderr, "cd: HOME not set\n");
-			return (1);
+			free(tmp->value);
+			tmp->value = ft_strdup(value);
+			return ;
 		}
-		if (chdir(home) != 0)
-		{
-			perror("cd");
-			return (1);
-		}
-		return (0);
+		if (!tmp->next)
+			break ;
+		tmp = tmp->next;
 	}
-	if (chdir(av[1]) != 0)
+	new = create_env_node(key, value);
+	if (!new)
+		return ;
+	if (!*env_list)
+		*env_list = new;
+	else
+		tmp->next = new;
+}
+
+static void	update_env(t_data *data, char *key, char *value)
+{
+	t_env	*current;
+
+	current = data->env_list;
+	while (current)
+	{
+		if (ft_strcmp(current->key, key) == 0)
+		{
+			free(current->value);
+			current->value = ft_strdup(value);
+			return ;
+		}
+		current = current->next;
+	}
+	add_env_var(&data->env_list, key, value);
+}
+
+static int	change_directory(char **path, t_cmd *cmd,
+	char **old_pwd, t_data *data)
+{
+	*old_pwd = getcwd(NULL, 0);
+	if (!*old_pwd)
+		*old_pwd = ft_strdup(get_env_value("PWD", data->env_list));
+	if (!cmd->args[1])
+	{
+		*path = get_env_value("HOME", data->env_list);
+		if (!*path)
+		{
+			ft_putstr_fd("cd: HOME not set\n", 2);
+			free(*old_pwd);
+			return (1);
+		}
+	}
+	else
+		*path = cmd->args[1];
+	if (chdir(*path) != 0)
 	{
 		perror("cd");
+		free(*old_pwd);
 		return (1);
 	}
+	return (0);
+}
+
+int	cd_builtin(t_data *data, t_cmd *cmd)
+{
+	char	*path;
+	char	*old_pwd;
+	char	*new_pwd;
+
+	if (cmd->args[1] && cmd->args[2] != NULL)
+	{
+		ft_putstr_fd("cd: too many arguments\n", 2);
+		return (1);
+	}
+	if (change_directory(&path, cmd, &old_pwd, data))
+		return (1);
+	new_pwd = getcwd(NULL, 0);
+	free(data->pwd);
+	data->pwd = new_pwd;
+	if (!new_pwd)
+	{
+		perror("getcwd");
+		free(old_pwd);
+		return (1);
+	}
+	update_env(data, "OLDPWD", old_pwd);
+	update_env(data, "PWD", new_pwd);
+	free(old_pwd);
 	return (0);
 }
