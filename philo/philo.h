@@ -6,7 +6,7 @@
 /*   By: tafonso <tafonso@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 21:18:36 by tafonso           #+#    #+#             */
-/*   Updated: 2026/02/25 16:27:18 by tafonso          ###   ########.fr       */
+/*   Updated: 2026/03/08 16:34:26 by tafonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,6 @@
 # include <stdlib.h>
 # include <sys/time.h>
 # include <limits.h>
-
-typedef struct s_philo
-{
-	int	number_of_philosophers;
-	int	time_to_die;
-	int	time_to_eat;
-	int	time_to_sleep;
-	int	number_of_times_each_philo_must_eat;
-}		t_philo;
 
 struct	s_table;
 

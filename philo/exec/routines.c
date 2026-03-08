@@ -6,11 +6,19 @@
 /*   By: tafonso <tafonso@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 16:08:47 by tafonso           #+#    #+#             */
-/*   Updated: 2026/03/07 14:18:49 by tafonso          ###   ########.fr       */
+/*   Updated: 2026/03/08 16:40:53 by tafonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
+
+static void	single_philo(t_philosopher *philo)
+{
+	take_forks(philo);
+	while (get_stop(philo->table) == 0)
+		usleep(500);
+	pthread_mutex_unlock(&philo->table->forks[philo->left_fork]);
+}
 
 void	*philo_routine(void *arg)
 {
@@ -19,13 +27,10 @@ void	*philo_routine(void *arg)
 
 	philo = (t_philosopher *)arg;
 	table = philo->table;
+	if (philo->id % 2 == 0)
+		usleep(1000);
 	if (table->number_of_philosophers == 1)
-	{
-		take_forks(philo);
-		ms_sleep(table, table->time_to_die);
-		pthread_mutex_unlock(&table->forks[philo->left_fork]);
-		return (NULL);
-	}
+		return (single_philo(philo), NULL);
 	while (get_stop(table) == 0)
 	{
 		if (verify_eat(philo))
@@ -79,12 +84,18 @@ int	check_philos(t_table *table)
 
 int	check_one(t_table *table, int i, int *all_ate)
 {
+	long	death_time;
+
+	death_time = 0;
 	pthread_mutex_lock(&table->philos[i].meal_mutex);
 	if ((timestamp_ms() - table->philos[i].last_meal) > table->time_to_die)
 	{
-		set_stop(table);
-		print_action(&table->philos[i], "died");
+		death_time = timestamp_ms() - table->start_time;
 		pthread_mutex_unlock(&table->philos[i].meal_mutex);
+		set_stop(table);
+		pthread_mutex_lock(&table->print_mutex);
+		printf("%ld %d died\n", death_time, table->philos[i].id);
+		pthread_mutex_unlock(&table->print_mutex);
 		return (1);
 	}
 	if (table->number_of_times_each_philo_must_eat > 0

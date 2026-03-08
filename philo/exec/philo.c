@@ -6,7 +6,7 @@
 /*   By: tafonso <tafonso@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/20 17:47:52 by tafonso           #+#    #+#             */
-/*   Updated: 2026/02/26 01:09:57 by tafonso          ###   ########.fr       */
+/*   Updated: 2026/03/08 14:34:17 by tafonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,15 @@ int	take_forks(t_philosopher *philo)
 	if (philo->id % 2 == 0)
 	{
 		pthread_mutex_lock(&philo->table->forks[philo->left_fork]);
-		pthread_mutex_lock(&philo->table->forks[philo->right_fork]);
 		print_action(philo, "has taken a fork");
+		pthread_mutex_lock(&philo->table->forks[philo->right_fork]);
 		print_action(philo, "has taken a fork");
 	}
 	else
 	{
 		pthread_mutex_lock(&philo->table->forks[philo->right_fork]);
-		pthread_mutex_lock(&philo->table->forks[philo->left_fork]);
 		print_action(philo, "has taken a fork");
+		pthread_mutex_lock(&philo->table->forks[philo->left_fork]);
 		print_action(philo, "has taken a fork");
 	}
 	return (0);
@@ -45,13 +45,13 @@ void	put_forks(t_philosopher *philo)
 
 void	philo_eat(t_philosopher *philo)
 {
+	if (get_stop(philo->table) == 1)
+		return ;
+	print_action(philo, "is eating");
 	pthread_mutex_lock(&philo->meal_mutex);
 	philo->last_meal = timestamp_ms();
 	philo->meals_eaten++;
 	pthread_mutex_unlock(&philo->meal_mutex);
-	if (get_stop(philo->table) == 1)
-		return ;
-	print_action(philo, "is eating");
 	ms_sleep(philo->table, philo->table->time_to_eat);
 }
 
