@@ -6,7 +6,7 @@
 /*   By: tafonso <tafonso@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 16:08:47 by tafonso           #+#    #+#             */
-/*   Updated: 2026/03/08 16:40:53 by tafonso          ###   ########.fr       */
+/*   Updated: 2026/03/08 18:40:48 by tafonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	*philo_routine(void *arg)
 	philo = (t_philosopher *)arg;
 	table = philo->table;
 	if (philo->id % 2 == 0)
-		usleep(1000);
+		usleep(table->time_to_eat * 500);
 	if (table->number_of_philosophers == 1)
 		return (single_philo(philo), NULL);
 	while (get_stop(table) == 0)
@@ -41,6 +41,8 @@ void	*philo_routine(void *arg)
 		print_action(philo, "is sleeping");
 		ms_sleep(table, table->time_to_sleep);
 		print_action(philo, "is thinking");
+		if (table->time_to_eat > table->time_to_sleep)
+			ms_sleep(table, (table->time_to_eat - table->time_to_sleep) / 2);
 	}
 	return (NULL);
 }
