@@ -4,7 +4,7 @@
 
 *A collection of projects completed as part of the 42 Lisboa curriculum.*
 
-[![Profile](https://img.shields.io/badge/42%20Lisboa-tafonso-000000?style=for-the-badge&logo=42&logoColor=white)](https://github.com/tafonso)
+[![Profile](https://img.shields.io/badge/42%20Lisboa-tafonso-000000?style=for-the-badge&logo=42&logoColor=white)](https://github.com/taosa3)
 
 </div>
 
@@ -17,11 +17,12 @@
 | 01 | [**Libft**](#-libft) | C standard library reimplementation | ![100](https://img.shields.io/badge/100%2F100-brightgreen?style=flat-square) |
 | 02 | [**ft_printf**](#-ft_printf) | Variadic printf reimplementation | ![100](https://img.shields.io/badge/100%2F100-brightgreen?style=flat-square) |
 | 03 | [**get_next_line**](#-get_next_line) | Line-by-line file reading | ![100](https://img.shields.io/badge/100%2F100-brightgreen?style=flat-square) |
-| 04 | [**so_long**](#-so_long) | 2D game with MiniLibX | ![100](https://img.shields.io/badge/100%2F100-brightgreen?style=flat-square) |
-| 05 | [**pipex**](#-pipex) | Unix pipe and process simulation | ![100](https://img.shields.io/badge/100%2F100-brightgreen?style=flat-square) |
-| 06 | [**push_swap**](#-push_swap) | Sorting algorithm with limited operations | ![84](https://img.shields.io/badge/84%2F100-yellow?style=flat-square) |
-| 07 | [**minishell**](#-minishell) | Bash-like shell interpreter | ![97](https://img.shields.io/badge/97%2F100-brightgreen?style=flat-square) |
-| 08 | [**philosophers**](#-philosophers) | Concurrency and thread synchronization | ![In Progress](https://img.shields.io/badge/In%20Progress-blue?style=flat-square) |
+| 04 | [**Born2beroot**](#-Born2beroot) |  Linux server setup and system administration | ![100](https://img.shields.io/badge/100%2F100-brightgreen?style=flat-square) |
+| 05 | [**so_long**](#-so_long) | 2D game with MiniLibX | ![100](https://img.shields.io/badge/100%2F100-brightgreen?style=flat-square) |
+| 06 | [**pipex**](#-pipex) | Unix pipe and process simulation | ![100](https://img.shields.io/badge/100%2F100-brightgreen?style=flat-square) |
+| 07 | [**push_swap**](#-push_swap) | Sorting algorithm with limited operations | ![84](https://img.shields.io/badge/84%2F100-yellow?style=flat-square) |
+| 08 | [**minishell**](#-minishell) | Bash-like shell interpreter | ![97](https://img.shields.io/badge/97%2F100-brightgreen?style=flat-square) |
+| 09 | [**philosophers**](#-philosophers) | Concurrency and thread synchronization | ![In Progress](https://img.shields.io/badge/In%20Progress-blue?style=flat-square) |
 
 ---
 
@@ -43,6 +44,19 @@ A faithful reimplementation of the C `printf` function using variadic arguments.
 ![100](https://img.shields.io/badge/Grade-100%2F100-brightgreen?style=flat-square)
 
 Implementation of a function that reads a file descriptor line by line across multiple successive calls. The challenge lies in correctly managing a static buffer across calls, handling arbitrary buffer sizes defined at compile time, and dealing cleanly with EOF, multiple file descriptors, and partial reads. A deceptively simple concept that demands precise memory handling.
+
+---
+
+## 📖 Born2beroot
+![100](https://img.shields.io/badge/Grade-100%2F100-brightgreen?style=flat-square)
+
+A system administration project centered around setting up and securing a Linux virtual 
+machine from scratch. The project requires configuring a Debian or Rocky Linux server with 
+strict rules: encrypted partitions using LVM, a hardened SSH configuration, a firewall with 
+UFW, strong password policies enforced via PAM, and sudo rules with detailed logging. A 
+custom monitoring script is written in Bash to display key system metrics at regular 
+intervals via cron. Born2beRoot is a deep introduction to how Linux systems are structured, 
+secured, and administered in practice.
 
 ---
 
