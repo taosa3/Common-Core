@@ -6,7 +6,7 @@
 /*   By: tafonso <tafonso@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 18:49:33 by tafonso           #+#    #+#             */
-/*   Updated: 2026/03/08 16:40:04 by tafonso          ###   ########.fr       */
+/*   Updated: 2026/03/11 17:25:46 by tafonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,7 @@ void	print_action(t_philosopher *philo, const char *action)
 	table = philo->table;
 	pthread_mutex_lock(&table->print_mutex);
 	ts = timestamp_ms() - table->start_time;
-	pthread_mutex_lock(&table->stop_mutex);
-	if (table->stop == 0 || ft_strcmp(action, "died") == 0)
+	if (get_stop(table) == 0 || ft_strcmp(action, "died") == 0)
 		printf("%ld %d %s\n", ts, philo->id, action);
-	pthread_mutex_unlock(&table->stop_mutex);
 	pthread_mutex_unlock(&table->print_mutex);
 }

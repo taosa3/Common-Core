@@ -6,7 +6,7 @@
 /*   By: tafonso <tafonso@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/20 17:45:10 by tafonso           #+#    #+#             */
-/*   Updated: 2026/02/25 19:14:33 by tafonso          ###   ########.fr       */
+/*   Updated: 2026/03/09 15:27:39 by tafonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@ static int	start_philos(t_table *table)
 	int		i;
 
 	i = 0;
+	table->start_time = timestamp_ms();
 	while (i < table->number_of_philosophers)
 	{
+		table->philos[i].last_meal = table->start_time;
 		if (pthread_create(&table->philos[i].thread, NULL, philo_routine,
 				&table->philos[i]) != 0)
 		{
