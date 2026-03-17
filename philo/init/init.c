@@ -6,7 +6,7 @@
 /*   By: tafonso <tafonso@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 15:54:39 by tafonso           #+#    #+#             */
-/*   Updated: 2026/03/08 15:41:26 by tafonso          ###   ########.fr       */
+/*   Updated: 2026/03/17 13:38:03 by tafonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ int	init_mutexes(t_table *table)
 	if (pthread_mutex_init(&table->print_mutex, NULL) != 0)
 		return (1);
 	if (pthread_mutex_init(&table->stop_mutex, NULL) != 0)
+		return (1);
+	if (pthread_mutex_init(&table->start_mutex, NULL) != 0)
 		return (1);
 	return (0);
 }

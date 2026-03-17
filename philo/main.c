@@ -6,21 +6,37 @@
 /*   By: tafonso <tafonso@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/20 17:45:10 by tafonso           #+#    #+#             */
-/*   Updated: 2026/03/09 15:27:39 by tafonso          ###   ########.fr       */
+/*   Updated: 2026/03/17 15:39:57 by tafonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+static void init_start_time(t_table *table)
+{
+	int i;
+
+	i = 0;
+	
+	table->start_time = timestamp_ms();
+
+	while (i < table->number_of_philosophers)
+	{
+		table->philos[i].last_meal = table->start_time;
+		i++;
+	}
+	return ;
+}
+
 
 static int	start_philos(t_table *table)
 {
 	int		i;
 
 	i = 0;
-	table->start_time = timestamp_ms();
+	pthread_mutex_lock(&table->start_mutex);
 	while (i < table->number_of_philosophers)
 	{
-		table->philos[i].last_meal = table->start_time;
 		if (pthread_create(&table->philos[i].thread, NULL, philo_routine,
 				&table->philos[i]) != 0)
 		{
@@ -30,6 +46,8 @@ static int	start_philos(t_table *table)
 		}
 		i++;
 	}
+	init_start_time(table);
+	pthread_mutex_unlock(&table->start_mutex);
 	if (pthread_create(&table->monitor_thread, NULL, monitor_routine,
 			table) != 0)
 	{

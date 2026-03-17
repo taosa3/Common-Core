@@ -6,7 +6,7 @@
 /*   By: tafonso <tafonso@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 21:18:36 by tafonso           #+#    #+#             */
-/*   Updated: 2026/03/08 16:34:26 by tafonso          ###   ########.fr       */
+/*   Updated: 2026/03/17 14:09:33 by tafonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_table
 	pthread_mutex_t		*forks;
 	pthread_mutex_t		print_mutex;
 	pthread_mutex_t		stop_mutex;
+	pthread_mutex_t		start_mutex;
 	t_philosopher		*philos;
 	pthread_t			monitor_thread;
 	long				start_time;
@@ -68,6 +69,7 @@ int		take_forks(t_philosopher *philo);
 void	put_forks(t_philosopher *philo);
 void	philo_eat(t_philosopher *philo);
 int		verify_eat(t_philosopher *philo);
+void	start_routine(t_table *table, t_philosopher *philo);
 
 //utils
 int		ft_strcmp(const char *s1, const char *s2);

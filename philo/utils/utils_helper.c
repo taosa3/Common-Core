@@ -6,7 +6,7 @@
 /*   By: tafonso <tafonso@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 16:04:37 by tafonso           #+#    #+#             */
-/*   Updated: 2026/03/08 01:30:50 by tafonso          ###   ########.fr       */
+/*   Updated: 2026/03/17 13:51:17 by tafonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	destroy_table(t_table *table)
 	destroy_philos_mutexes(table);
 	pthread_mutex_destroy(&table->print_mutex);
 	pthread_mutex_destroy(&table->stop_mutex);
+	pthread_mutex_destroy(&table->start_mutex);
 	free(table->forks);
 	free(table->philos);
 }

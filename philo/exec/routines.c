@@ -6,7 +6,7 @@
 /*   By: tafonso <tafonso@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 16:08:47 by tafonso           #+#    #+#             */
-/*   Updated: 2026/03/09 16:05:49 by tafonso          ###   ########.fr       */
+/*   Updated: 2026/03/17 15:40:24 by tafonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@ void	*philo_routine(void *arg)
 
 	philo = (t_philosopher *)arg;
 	table = philo->table;
-	if (philo->id % 2 == 0)
-		usleep(1000);
+	start_routine(table, philo);
 	if (table->number_of_philosophers == 1)
 		return (single_philo(philo), NULL);
 	while (get_stop(table) == 0)
@@ -36,13 +35,15 @@ void	*philo_routine(void *arg)
 		if (verify_eat(philo))
 			break ;
 		take_forks(philo);
+		if (get_stop(table))
+			return (put_forks(philo), NULL);
 		philo_eat(philo);
 		put_forks(philo);
 		print_action(philo, "is sleeping");
 		ms_sleep(table, table->time_to_sleep);
 		print_action(philo, "is thinking");
 		if (table->number_of_philosophers % 2 == 1)
-			usleep(table->time_to_eat * 500);
+			usleep(1000);
 	}
 	return (NULL);
 }
@@ -58,7 +59,7 @@ void	*monitor_routine(void *arg)
 		check = check_philos(table);
 		if (check != 0)
 			return (NULL);
-		usleep(500);
+		usleep(1000);
 	}
 	return (NULL);
 }
@@ -95,9 +96,10 @@ int	check_one(t_table *table, int i, int *all_ate)
 		death_time = timestamp_ms() - table->start_time;
 		pthread_mutex_unlock(&table->philos[i].meal_mutex);
 		set_stop(table);
-		pthread_mutex_lock(&table->print_mutex);
-		printf("%ld %d died\n", death_time, table->philos[i].id);
-		pthread_mutex_unlock(&table->print_mutex);
+		// pthread_mutex_lock(&table->print_mutex);
+		print_action(&(table->philos[i]), "died");
+		// printf("%ld %d died\n", death_time, table->philos[i].id);
+		// pthread_mutex_unlock(&table->print_mutex);
 		return (1);
 	}
 	if (table->number_of_times_each_philo_must_eat > 0

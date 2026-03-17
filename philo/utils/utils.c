@@ -6,7 +6,7 @@
 /*   By: tafonso <tafonso@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 18:49:33 by tafonso           #+#    #+#             */
-/*   Updated: 2026/03/11 17:25:46 by tafonso          ###   ########.fr       */
+/*   Updated: 2026/03/17 15:38:30 by tafonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	ms_sleep(t_table *table, long ms)
 	{
 		if ((timestamp_ms() - start) >= ms)
 			break ;
-		usleep(500);
+		usleep(1000);
 	}
 }
 
@@ -71,13 +71,13 @@ int	ft_atoi_strict(const char *s)
 
 void	print_action(t_philosopher *philo, const char *action)
 {
-	long	ts;
+	// long	ts;
 	t_table	*table;
 
 	table = philo->table;
 	pthread_mutex_lock(&table->print_mutex);
-	ts = timestamp_ms() - table->start_time;
+	// ts = timestamp_ms() - table->start_time;
 	if (get_stop(table) == 0 || ft_strcmp(action, "died") == 0)
-		printf("%ld %d %s\n", ts, philo->id, action);
+		printf("%ld %d %s\n", timestamp_ms() - table->start_time, philo->id, action);
 	pthread_mutex_unlock(&table->print_mutex);
 }

@@ -1,6 +1,6 @@
 NAME = philo
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g -pthread
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=thread
 
 SRCS = main.c \
 		$(addprefix exec/, philo.c routines.c) \
