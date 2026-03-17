@@ -6,7 +6,7 @@
 /*   By: tafonso <tafonso@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 16:08:47 by tafonso           #+#    #+#             */
-/*   Updated: 2026/03/17 15:40:24 by tafonso          ###   ########.fr       */
+/*   Updated: 2026/03/17 16:07:07 by tafonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	*monitor_routine(void *arg)
 		check = check_philos(table);
 		if (check != 0)
 			return (NULL);
-		usleep(1000);
+		usleep(200);
 	}
 	return (NULL);
 }
@@ -87,19 +87,12 @@ int	check_philos(t_table *table)
 
 int	check_one(t_table *table, int i, int *all_ate)
 {
-	long	death_time;
-
-	death_time = 0;
 	pthread_mutex_lock(&table->philos[i].meal_mutex);
 	if ((timestamp_ms() - table->philos[i].last_meal) > table->time_to_die)
 	{
-		death_time = timestamp_ms() - table->start_time;
 		pthread_mutex_unlock(&table->philos[i].meal_mutex);
 		set_stop(table);
-		// pthread_mutex_lock(&table->print_mutex);
 		print_action(&(table->philos[i]), "died");
-		// printf("%ld %d died\n", death_time, table->philos[i].id);
-		// pthread_mutex_unlock(&table->print_mutex);
 		return (1);
 	}
 	if (table->number_of_times_each_philo_must_eat > 0

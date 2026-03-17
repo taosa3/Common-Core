@@ -6,20 +6,18 @@
 /*   By: tafonso <tafonso@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/20 17:45:10 by tafonso           #+#    #+#             */
-/*   Updated: 2026/03/17 15:39:57 by tafonso          ###   ########.fr       */
+/*   Updated: 2026/03/17 15:52:46 by tafonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void init_start_time(t_table *table)
+static void	init_start_time(t_table *table)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	
 	table->start_time = timestamp_ms();
-
 	while (i < table->number_of_philosophers)
 	{
 		table->philos[i].last_meal = table->start_time;
@@ -27,7 +25,6 @@ static void init_start_time(t_table *table)
 	}
 	return ;
 }
-
 
 static int	start_philos(t_table *table)
 {
