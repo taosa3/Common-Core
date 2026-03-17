@@ -6,7 +6,7 @@
 /*   By: tafonso <tafonso@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 16:08:47 by tafonso           #+#    #+#             */
-/*   Updated: 2026/03/17 16:07:07 by tafonso          ###   ########.fr       */
+/*   Updated: 2026/03/17 17:20:14 by tafonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	*philo_routine(void *arg)
 		print_action(philo, "is sleeping");
 		ms_sleep(table, table->time_to_sleep);
 		print_action(philo, "is thinking");
-		if (table->number_of_philosophers % 2 == 1)
+		if (table->number_of_philosophers % 2 != 0)
 			usleep(1000);
 	}
 	return (NULL);
@@ -59,7 +59,7 @@ void	*monitor_routine(void *arg)
 		check = check_philos(table);
 		if (check != 0)
 			return (NULL);
-		usleep(200);
+		usleep(500);
 	}
 	return (NULL);
 }

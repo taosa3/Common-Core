@@ -6,7 +6,7 @@
 /*   By: tafonso <tafonso@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/20 17:47:52 by tafonso           #+#    #+#             */
-/*   Updated: 2026/03/17 15:56:30 by tafonso          ###   ########.fr       */
+/*   Updated: 2026/03/17 17:21:13 by tafonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,5 @@ void	start_routine(t_table *table, t_philosopher *philo)
 	pthread_mutex_lock(&table->start_mutex);
 	pthread_mutex_unlock(&table->start_mutex);
 	if (philo->id % 2 == 0)
-		usleep(1000);
+		ms_sleep(table, 5);
 }
