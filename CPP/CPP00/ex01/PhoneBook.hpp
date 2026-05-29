@@ -13,7 +13,10 @@ class PhoneBook {
 	public:
 	PhoneBook( void );
 	~PhoneBook( void );
-	
+	void add_contact(void);
+	void search_contact(void) const;
+	void display_contacts(void) const;
+
 };
 
 #endif

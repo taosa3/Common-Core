@@ -1,20 +1,27 @@
-NAME = megaphone
+NAME = phonebook
+
 CC = c++
-CFLAGS = -Wall -Wextra -Werror
+CCFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRCS = megaphone.cpp
+SRCS = main.cpp Contact.cpp PhoneBook.cpp
 
+OBJ_DIR = objects
+OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.cpp=.o))
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $(SRCS) -o $(NAME)
+$(NAME): $(OBJS)
+	@$(CC) $(CCFLAGS) $(OBJS) -o $(NAME)
+
+$(OBJ_DIR)/%.o: %.cpp
+	@mkdir -p $(OBJ_DIR)
+	@$(CC) $(CCFLAGS) -c $< -o $@
 
 clean:
-	@rm -r $(NAME)
+	@rm -rf $(OBJ_DIR)
 
 fclean: clean
-	
+	@rm -f $(NAME)
 
 re: fclean all
 
