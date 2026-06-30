@@ -17,15 +17,15 @@ Contact::~Contact(void)
 int		check_letters(const std::string& str) {
 	for (size_t i = 0; i < str.length(); i++)
 		if (!std::isalpha(str[i]))
-			return 0;  // Invalid: contains non-letter
-	return 1;  // Valid: all letters
+			return 0;
+	return 1;
 }
 
 int		check_numbers(const std::string& str) {
 	for (size_t i = 0; i < str.length(); i++)
 		if (!std::isdigit(str[i]))
-			return 0;  // Invalid: contains non-digit
-	return 1;  // Valid: all digits
+			return 0;
+	return 1;
 }
 
 void	Contact::input_contact() {
@@ -95,10 +95,12 @@ void Contact::display_short(int index) const {
 	std::string lname = lastname;
 	std::string nick = nickname;
 
-	// Truncate with dot if longer than 9 chars (10 width - 1 for dot)
-	if (fname.length() > 9) fname = fname.substr(0, 9) + ".";
-	if (lname.length() > 9) lname = lname.substr(0, 9) + ".";
-	if (nick.length() > 9) nick = nick.substr(0, 9) + ".";
+	if (fname.length() > 9)
+		fname = fname.substr(0, 9) + ".";
+	if (lname.length() > 9) 
+		lname = lname.substr(0, 9) + ".";
+	if (nick.length() > 9)
+		nick = nick.substr(0, 9) + ".";
 
 	std::cout << std::setw(10) << std::right << index << "|"
 			  << std::setw(10) << std::right << fname << "|"

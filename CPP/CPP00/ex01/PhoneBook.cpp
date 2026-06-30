@@ -19,11 +19,8 @@ void PhoneBook::add_contact(void)
 {
 	std::cout << "\n--- ADD NEW CONTACT ---" << std::endl;
 	contacts[index].input_contact();
-
-	// Move to next position for circular buffer
 	index = (index + 1) % 8;
 
-	// Increment count until we reach 8
 	if (count < 8)
 		count++;
 
@@ -62,10 +59,9 @@ void PhoneBook::search_contact(void) const
 	std::string input;
 	std::getline(std::cin, input);
 
-	// Convert string to int
 	int contact_index;
-	std::istringstream iss(input);
-	if (!(iss >> contact_index) || contact_index < 0 || contact_index >= count)
+	contact_index = input[0] - '0';
+	if (contact_index < 0 || contact_index >= count)
 	{
 		std::cout << "Invalid index." << std::endl;
 		return;
