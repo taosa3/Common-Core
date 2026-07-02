@@ -6,22 +6,17 @@
 
 int main()
 {
-    const Animal* meta = new Animal();
     const Animal* j = new Dog();
     const Animal* i = new Cat();
     std::cout << j->getType() << " " << std::endl;
     std::cout << i->getType() << " " << std::endl;
     i->makeSound();
     j->makeSound();
-    meta->makeSound();
-
-    delete meta;
     delete j;
     delete i;
 
     const WrongAnimal* wrong = new WrongCat();
     wrong->makeSound();
-
     delete wrong;
 
     std::cout << std::endl;
@@ -52,5 +47,8 @@ int main()
     a2.getBrain()->ideas[0] = "I want to scratch you!";
     std::cout << "a1's brain idea: " << a1.getBrain()->ideas[0] << std::endl;
     std::cout << "a2's brain idea: " << a2.getBrain()->ideas[0] << std::endl;
+
+    //Animal *animal = nwe Animal();
+    //delete animal;
     return 0;
 }
