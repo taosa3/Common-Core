@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <malloc.h>
+#include <stdlib.h>
 #include <ctype.h>
 
 typedef struct node {
@@ -74,14 +74,15 @@ static node *parse_factor(char **s)
     }
     if (accept(s, '('))
     {
-        node *a = parse_expr_r(s);
-        if (!a)
+        node *n = parse_expr_r(s);
+        if (!n)
             return NULL;
-        if (!expect(s, ')')) {
-            destroy_tree(a);
+        if (!expect(s, ')'))
+        {
+            destroy_tree(n);
             return NULL;
         }
-        return a;
+        return n;
     }
     unexpected(**s);
     return NULL;
