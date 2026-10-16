@@ -24,7 +24,7 @@ Bureaucrat &Bureaucrat::operator=(const Bureaucrat &other) {
 }
 
 Bureaucrat::~Bureaucrat() {
-    std::cout << "Destructor called!" << std::endl;
+
 }
 
 std::string Bureaucrat::getName() const {
