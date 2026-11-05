@@ -1,72 +1,174 @@
+#include <iostream>
+#include <string>
+#include <cstdlib>
+#include <ctime>
+
 #include "Bureaucrat.hpp"
-#include "Form.hpp"
+#include "AForm.hpp"
+#include "ShrubberyCreationForm.hpp"
+#include "RobotomyRequestForm.hpp"
+#include "PresidentialPardonForm.hpp"
 
-int main() {
-    std::cout << "\n[Form constructor boundaries]" << std::endl;
-    try {
-        Form valid("Valid", 1, 150);
-        std::cout << valid << std::endl;
-    }
-    catch (const std::exception &e) {
-        std::cout << "Unexpected exception: " << e.what() << std::endl;
-    }
+static void title(std::string const &text)
+{
+	std::cout << std::endl << "===== " << text << " =====" << std::endl;
+}
 
-    try {
-        Form invalidHigh("Invalid high", 0, 50);
-        (void)invalidHigh;
-        std::cout << "ERROR: invalid signing grade was accepted" << std::endl;
-    }
-    catch (const Form::GradeTooHighException &e) {
-        std::cout << "Expected form GradeTooHighException: " << e.what() << std::endl;
-    }
+static void signAndExecute(Bureaucrat &b, AForm &f)
+{
+	try
+	{
+		b.signAForm(f);
+		b.executeForm(f);
+	}
+	catch (std::exception &e)
+	{
+		std::cout << "Exception caught in main: " << e.what() << std::endl;
+	}
+}
 
-    try {
-        Form invalidLow("Invalid low", 50, 151);
-        (void)invalidLow;
-        std::cout << "ERROR: invalid execution grade was accepted" << std::endl;
-    }
-    catch (const Form::GradeTooLowException &e) {
-        std::cout << "Expected form GradeTooLowException: " << e.what() << std::endl;
-    }
+int main()
+{
+	std::srand(static_cast<unsigned int>(std::time(NULL)));
 
-    std::cout << "\n[Form signing]" << std::endl;
-    Bureaucrat exact("Exact", 50);
-    Bureaucrat better("Better", 49);
-    Bureaucrat worse("Worse", 51);
-    Form form("Needs grade 50", 50, 100);
+	title("1. Invalid bureaucrat grades");
+	try
+	{
+		Bureaucrat tooHigh("TooHigh", 0);
+		std::cout << tooHigh << std::endl;
+	}
+	catch (std::exception &e)
+	{
+		std::cout << "Caught: " << e.what() << std::endl;
+	}
+	try
+	{
+		Bureaucrat tooLow("TooLow", 151);
+		std::cout << tooLow << std::endl;
+	}
+	catch (std::exception &e)
+	{
+		std::cout << "Caught: " << e.what() << std::endl;
+	}
 
-    exact.signForm(form);
-    std::cout << "Exact grade signs: " << (form.getIsSigned() ? "yes" : "no") << std::endl;
+	title("2. Top bureaucrat: every form signs and executes");
+	{
+		Bureaucrat boss("Boss", 1);
+		ShrubberyCreationForm shrub("home");
+		RobotomyRequestForm robot("Bender");
+		PresidentialPardonForm pardon("Arthur");
 
-    Form secondForm("Second form", 50, 100);
-    better.signForm(secondForm);
-    std::cout << "Better grade signs: " << (secondForm.getIsSigned() ? "yes" : "no") << std::endl;
+		std::cout << boss << std::endl;
+		std::cout << shrub << std::endl;
+		std::cout << robot << std::endl;
+		std::cout << pardon << std::endl;
 
-    Form rejected("Rejected", 50, 100);
-    worse.signForm(rejected);
-    std::cout << "Worse grade remains unsigned: " << (!rejected.getIsSigned() ? "yes" : "no") << std::endl;
+		signAndExecute(boss, shrub);
+		signAndExecute(boss, robot);
+		signAndExecute(boss, pardon);
+		std::cout << "-> check that the file home_shrubbery exists and has trees" << std::endl;
+	}
 
-    exact.signForm(form);
-    std::cout << "Signing an already signed form remains signed: " << (form.getIsSigned() ? "yes" : "no") << std::endl;
+	title("3. Robotomy 50%: execute 10 times, expect both outcomes");
+	{
+		Bureaucrat boss("Boss", 1);
+		RobotomyRequestForm robot("Marvin");
 
+		boss.signAForm(robot);
+		for (int i = 0; i < 10; i++)
+			boss.executeForm(robot);
+	}
 
-    std::cout << "\n[Copy and assignment]" << std::endl;
-    Bureaucrat original("Original", 42);
-    Bureaucrat copied(original);
-    std::cout << "Copied bureaucrat: " << copied << std::endl;
+	title("4. Executing a form that is NOT signed");
+	{
+		Bureaucrat boss("Boss", 1);
+		PresidentialPardonForm pardon("Ford");
 
-    Bureaucrat assigned("Assigned", 100);
-    assigned = original;
-    std::cout << "Assigned bureaucrat keeps its name and gets grade 42: " << assigned << std::endl;
+		try
+		{
+			boss.executeForm(pardon);
+		}
+		catch (std::exception &e)
+		{
+			std::cout << "Exception caught in main: " << e.what() << std::endl;
+		}
+	}
 
-    Form source("Source", 50, 75);
-    Bureaucrat signer("Signer", 1);
-    signer.signForm(source);
-    Form formCopy(source);
-    std::cout << "Copied form: " << formCopy << std::endl;
+	title("5. Grade too low to SIGN (150 vs 25)");
+	{
+		Bureaucrat intern("Newbie", 150);
+		PresidentialPardonForm pardon("Trillian");
 
-    Form target("Target", 100, 100);
-    target = source;
-    std::cout << "Assigned form keeps its own name and grades, copies signed state: " << target << std::endl;
-    
+		signAndExecute(intern, pardon);
+		std::cout << pardon << std::endl;
+	}
+
+	title("6. Can sign but grade too low to EXECUTE (25 signs, 5 needed)");
+	{
+		Bureaucrat middle("Middle", 25);
+		PresidentialPardonForm pardon("Zaphod");
+
+		signAndExecute(middle, pardon);
+	}
+
+	title("7. Boundary values for Shrubbery (sign 145, exec 137)");
+	{
+		ShrubberyCreationForm shrub("boundary");
+		Bureaucrat low("Low", 145);
+		Bureaucrat better("Better", 137);
+
+		signAndExecute(low, shrub);
+		std::cout << "-- now a better bureaucrat executes it --" << std::endl;
+		better.executeForm(shrub);
+	}
+
+	title("8. Increment / decrement then try again");
+	{
+		Bureaucrat b("Climber", 6);
+		PresidentialPardonForm pardon("Slartibartfast");
+
+		b.signAForm(pardon);
+		b.executeForm(pardon);
+		b.gradeIncrement();
+		std::cout << b << std::endl;
+		b.executeForm(pardon);
+	}
+
+	title("9. Polymorphism: AForm pointers + virtual destructor");
+	{
+		Bureaucrat boss("Boss", 1);
+		AForm *forms[3];
+
+		forms[0] = new ShrubberyCreationForm("poly");
+		forms[1] = new RobotomyRequestForm("Poly");
+		forms[2] = new PresidentialPardonForm("Poly");
+
+		for (int i = 0; i < 3; i++)
+		{
+			std::cout << *forms[i] << std::endl;
+			signAndExecute(boss, *forms[i]);
+		}
+		for (int i = 0; i < 3; i++)
+			delete forms[i];
+	}
+
+	title("10. Copy constructor and assignment operator");
+	{
+		PresidentialPardonForm original("Original");
+		Bureaucrat boss("Boss", 1);
+
+		boss.signAForm(original);
+
+		PresidentialPardonForm copy(original);
+		PresidentialPardonForm assigned("Other");
+		assigned = original;
+
+		std::cout << "original: " << original << std::endl;
+		std::cout << "copy:     " << copy << std::endl;
+		std::cout << "assigned: " << assigned << std::endl;
+		boss.executeForm(copy);
+		boss.executeForm(assigned);
+	}
+
+	return 0;
 }
