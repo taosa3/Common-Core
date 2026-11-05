@@ -25,7 +25,7 @@
 | 09 | [**philosophers**](#-philosophers) | Concurrency and thread synchronization | ![100](https://img.shields.io/badge/100%2F100-brightgreen?style=flat-square) |
 | 10 | [**NetPractice**](#-NetPractice) | Networking and subneting | ![100](https://img.shields.io/badge/100%2F100-brightgreen?style=flat-square) |
 | 11 | [**cub3d**](#-cub3d) | Raycasting game | ![115](https://img.shields.io/badge/115-brightgreen?style=flat-square) |
-| 12 | [**CPP(00-04)**](#-CPP) | Networking and subneting | ![100](https://img.shields.io/badge/100%2F100-brightgreen?style=flat-square) |
+| 12 | [**CPP**](#-CPP) | Networking and subneting | ![100](https://img.shields.io/badge/100%2F100-brightgreen?style=flat-square) |
 
 ---
 
@@ -108,7 +108,7 @@ A networking project focused on understanding TCP/IP addressing and network conf
 
 A 3D game project inspired by Wolfenstein 3D, built using raycasting. Explore graphics programming, texture rendering, and player movement. Create a first-person game using C.
 
-## 📖 CPP(00-04)
+## 📖 CPP
 ![100](https://img.shields.io/badge/100%2F100-brightgreen?style=flat-square)
 
 A series of C++ projects covering the fundamentals of object-oriented programming. Explore classes, memory management, inheritance, polymorphism, operator overloading, and abstract classes. Build a strong foundation in modern C++ development.
