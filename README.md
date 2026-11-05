@@ -25,7 +25,7 @@
 | 09 | [**philosophers**](#-philosophers) | Concurrency and thread synchronization | ![100](https://img.shields.io/badge/100%2F100-brightgreen?style=flat-square) |
 | 10 | [**NetPractice**](#-NetPractice) | Networking and subneting | ![100](https://img.shields.io/badge/100%2F100-brightgreen?style=flat-square) |
 | 11 | [**cub3d**](#-cub3d) | Raycasting game | ![115](https://img.shields.io/badge/115-brightgreen?style=flat-square) |
-| 12 | [**CPP**](#-CPP) | Networking and subneting | ![100](https://img.shields.io/badge/100%2F100-brightgreen?style=flat-square) |
+| 12 | [**CPP**](#-CPP) | Learning C++ | ![100](https://img.shields.io/badge/100%2F100-brightgreen?style=flat-square) |
 
 ---
 
