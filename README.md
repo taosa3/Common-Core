@@ -22,7 +22,10 @@
 | 06 | [**pipex**](#-pipex) | Unix pipe and process simulation | ![100](https://img.shields.io/badge/100%2F100-brightgreen?style=flat-square) |
 | 07 | [**push_swap**](#-push_swap) | Sorting algorithm with limited operations | ![84](https://img.shields.io/badge/84%2F100-yellow?style=flat-square) |
 | 08 | [**minishell**](#-minishell) | Bash-like shell interpreter | ![97](https://img.shields.io/badge/97%2F100-brightgreen?style=flat-square) |
-| 09 | [**philosophers**](#-philosophers) | Concurrency and thread synchronization | ![In Progress](https://img.shields.io/badge/In%20Progress-blue?style=flat-square) |
+| 09 | [**philosophers**](#-philosophers) | Concurrency and thread synchronization | ![100](https://img.shields.io/badge/100%2F100-brightgreen?style=flat-square) |
+| 10 | [**NetPractice**](#-NetPractice) | Networking and subneting | ![100](https://img.shields.io/badge/100%2F100-brightgreen?style=flat-square) |
+| 11 | [**cub3d**](#-cub3d) | Raycasting game | ![115](https://img.shields.io/badge/115-brightgreen?style=flat-square) |
+| 12 | [**CPP(00-04)**](#-CPP) | Networking and subneting | ![100](https://img.shields.io/badge/100%2F100-brightgreen?style=flat-square) |
 
 ---
 
@@ -89,12 +92,26 @@ A fully functional Bash-like shell interpreter written in C. Minishell handles c
 ---
 
 ## 📖 philosophers
-![In Progress](https://img.shields.io/badge/Status-In%20Progress-blue?style=flat-square)
+![100](https://img.shields.io/badge/100%2F100-brightgreen?style=flat-square)
 
 A concurrency project based on the classic Dining Philosophers problem. The challenge is to prevent deadlocks and race conditions while allowing philosophers to eat, sleep, and think using POSIX threads (`pthread`) and mutexes. Precise timing, careful mutex ordering, and a monitor thread are required to ensure no philosopher starves and that death is detected and reported within a strict time window.
 
 ---
 
+## 📖 NetPractice
+![100](https://img.shields.io/badge/100%2F100-brightgreen?style=flat-square)
+
+A networking project focused on understanding TCP/IP addressing and network configuration. Learn to configure IP addresses, subnet masks, and routing tables. Develop a solid foundation in computer networking.
+
+## 📖 cub3d
+![100](https://img.shields.io/badge/100%2F100-brightgreen?style=flat-square)
+
+A 3D game project inspired by Wolfenstein 3D, built using raycasting. Explore graphics programming, texture rendering, and player movement. Create a first-person game using C.
+
+## 📖 CPP(00-04)
+![100](https://img.shields.io/badge/100%2F100-brightgreen?style=flat-square)
+
+A series of C++ projects covering the fundamentals of object-oriented programming. Explore classes, memory management, inheritance, polymorphism, operator overloading, and abstract classes. Build a strong foundation in modern C++ development.
 <div align="center">
 
 *42 Lisboa — Common Core*
