@@ -16,15 +16,8 @@ static void title(std::string const &text)
 
 static void signAndExecute(Bureaucrat &b, AForm &f)
 {
-	try
-	{
 		b.signAForm(f);
 		b.executeForm(f);
-	}
-	catch (std::exception &e)
-	{
-		std::cout << "Exception caught in main: " << e.what() << std::endl;
-	}
 }
 
 int main()
@@ -84,14 +77,7 @@ int main()
 		Bureaucrat boss("Boss", 1);
 		PresidentialPardonForm pardon("Ford");
 
-		try
-		{
-			boss.executeForm(pardon);
-		}
-		catch (std::exception &e)
-		{
-			std::cout << "Exception caught in main: " << e.what() << std::endl;
-		}
+		boss.executeForm(pardon);
 	}
 
 	title("5. Grade too low to SIGN (150 vs 25)");
