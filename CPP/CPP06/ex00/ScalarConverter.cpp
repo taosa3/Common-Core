@@ -139,7 +139,7 @@ void ScalarConverter::convert(const std::string& literal) {
             char *end;
             float value = std::strtof(literal.c_str(), &end);
             std::cout << "End pointer: " << *end << std::endl;
-            if (*end != '\0') {
+            if (*(end + 1) != '\0') {
                 printImpossible();
                 return;
             }
@@ -150,7 +150,7 @@ void ScalarConverter::convert(const std::string& literal) {
         {
             char *end;
             double value = std::strtod(literal.c_str(), &end);
-            if (*(end + 1) != '\0') {
+            if (*end != '\0') {
                 printImpossible();
                 return;
             }
@@ -162,10 +162,9 @@ void ScalarConverter::convert(const std::string& literal) {
             printImpossible();
             return;
         }
-        printChar(result);
-        printInt(result);
-        printFloat(result);
-        printDouble(result);
     }
-
+    printChar(result);
+    printInt(result);
+    printFloat(result);
+    printDouble(result);
 }
