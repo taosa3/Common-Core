@@ -1,12 +1,13 @@
 #include "ScalarConverter.hpp"
 #include <iostream>
+#include <cmath>
 
 enum Type {
     INT,
     CHAR,
     FLOAT,
     DOUBLE,
-    INVALID = 100
+    INVALID
 };
 
 static Type getType(const std::string& literal) {
@@ -91,8 +92,13 @@ static void printFloat(double value) {
         else
             std::cout << "float: -inff" << std::endl;
     }
-    else
-        std::cout << "float: " << std::fixed << std::setprecision(1) << static_cast<float>(value) << "f" << std::endl;
+    else {
+        double integerPart;
+        std::cout << "float: " << static_cast<float>(value);
+        if (std::modf(value, &integerPart) == 0.0)
+            std::cout << ".0";
+        std::cout << "f" << std::endl;
+    }
 }
 
 static void printDouble(double value) {
@@ -104,17 +110,17 @@ static void printDouble(double value) {
         else
             std::cout << "double: -inf" << std::endl;
     }
-    else
-        std::cout << "double: " << value << std::endl;
+    else {
+        double integerPart;
+        std::cout << "double: " << value;
+        if (std::modf(value, &integerPart) == 0.0)
+            std::cout << ".0";
+        std::cout << std::endl;
+    }
 }
 
 void ScalarConverter::convert(const std::string& literal) {
     Type type = getType(literal);
-    std::string typeName = (type == INT) ? "int" :
-                      (type == CHAR) ? "char" :
-                      (type == FLOAT) ? "float" :
-                      (type == DOUBLE) ? "double" : "invalid";
-    std::cout << "Type: " << typeName << std::endl;
     double result = 0;
 
     switch (type) {
@@ -138,7 +144,6 @@ void ScalarConverter::convert(const std::string& literal) {
         {
             char *end;
             float value = std::strtof(literal.c_str(), &end);
-            std::cout << "End pointer: " << *end << std::endl;
             if (*(end + 1) != '\0') {
                 printImpossible();
                 return;
