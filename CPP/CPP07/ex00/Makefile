@@ -1,9 +1,9 @@
-NAME = identify
+NAME = whatever
 
 CC = c++
 CCFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRCS = main.cpp Base.cpp
+SRCS = main.cpp
 
 OBJ_DIR = objects
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.cpp=.o))
