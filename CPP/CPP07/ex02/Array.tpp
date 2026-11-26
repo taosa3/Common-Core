@@ -1,5 +1,6 @@
 #include "Array.hpp"
 
+
 template <typename T>
 Array<T>::Array() : arr(NULL), length(0) {
 
@@ -8,13 +9,13 @@ Array<T>::Array() : arr(NULL), length(0) {
 template <typename T>
 Array<T>::Array(unsigned int n) : arr(NULL), length(n) {
     if (n > 0)
-        arr = new T[n];  
+        arr = new T[n]();  
 }
 
 template <typename T>
 Array<T>::Array(const Array& other) : arr(NULL), length(other.length) {
     if (length > 0) {
-        arr = new T[length];
+        arr = new T[length]();
         for (unsigned int i = 0; i < length; i++)
             arr[i] = other.arr[i];
     }
@@ -31,7 +32,7 @@ Array<T>& Array<T>::operator=(const Array& other) {
         delete[] arr;
         length = other.length;
         if (length > 0) {
-            arr = new T[length];
+            arr = new T[length]();
             for (unsigned int i = 0; i < length; i++)
                 arr[i] = other.arr[i];
         } 
@@ -57,5 +58,5 @@ const T& Array<T>::operator[](unsigned int index) const {
 
 template <typename T>
 unsigned int Array<T>::size() const {
-    return size;
+    return length;
 }
